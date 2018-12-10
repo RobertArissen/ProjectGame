@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
