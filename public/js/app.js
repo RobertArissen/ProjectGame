@@ -47796,6 +47796,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         Game.load();
+
+        axios.get('/api/user').then(function (response) {
+            console.log(response.data);
+        });
     }
 });
 

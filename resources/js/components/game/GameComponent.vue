@@ -56,6 +56,11 @@
 
         mounted() {
             Game.load()
-        }
+
+            axios.get('/api/user')
+            .then(response => {
+                console.log(response.data);
+            });
+        },
     }
 </script>
