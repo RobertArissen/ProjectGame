@@ -13936,6 +13936,7 @@ module.exports = __webpack_require__(45);
 __webpack_require__(13);
 
 window.Vue = __webpack_require__(36);
+window._ = __webpack_require__(14);
 
 /* Game Files */
 __webpack_require__(39);
@@ -13952,7 +13953,8 @@ __webpack_require__(40);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
-Vue.component('example-component', __webpack_require__(41));
+Vue.component('login-compontent', __webpack_require__(53));
+Vue.component('game-compontent', __webpack_require__(50));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13960,9 +13962,9 @@ Vue.component('example-component', __webpack_require__(41));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#app'
-// });
+var app = new Vue({
+  el: '#app'
+});
 
 /***/ }),
 /* 13 */
@@ -47367,81 +47369,21 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 39 */
 /***/ (function(module, exports) {
 
-// Map between index and filename
-window.IsometricMap = {
-  tiles: [
-  // "images/dirt.png",
-  "images/dirtHigh.png", // 0
-  "images/thumbnail_grasskopie.png", // 1
-  "images/water.png", // 2
-  "images/waterBeachCornerEast.png", // 3
-  "images/waterBeachCornerNorth.png", // 4
-  "images/waterBeachCornerSouth.png", // 5
-  "images/waterBeachCornerWest.png", // 6
-  "images/waterBeachEast.png", // 7
-  "images/waterBeachNorth.png", // 8
-  "images/waterBeachSouth.png", // 9
-  "images/waterBeachWest.png", // 10
-  "images/waterCornerEast.png", // 11
-  "images/waterCornerNorth.png", // 12
-  "images/waterCornerSouth.png", // 13
-  "images/waterCornerWest.png", // 14
-  "images/waterEast.png", // 15
-  "images/waterNorth.png", // 16
-  "images/waterSouth.png", // 17
-  "images/waterWest.png", // 18
-  "images/bridgeEast.png", // 19
-  "images/bridgeNorth.png", // 20
-  "images/crossroad.png", // 21
-  // "images/hillCornerEast.png",
-  // "images/hillCornerNW.png",
-  // "images/hillCornerSE.png",
-  // "images/hillCornerWest.png",
-  // "images/hillEast.png",
-  // "images/hillNorth.png",
-  // "images/hillRoadEast.png",
-  // "images/hillRoadNorth.png",
-  // "images/hillRoadSouth.png",
-  // "images/hillRoadWest.png",
-  // "images/hillSouth.png",
-  // "images/hillWest.png",
-  "images/lot.png", // 22
-  "images/lotCornerEast.png", // 23
-  "images/lotCornerNorth.png", // 24
-  "images/lotCornerSouth.png", // 25
-  "images/lotCornerWest.png", // 26
-  "images/lotEast.png", // 27
-  "images/lotExitEast.png", // 28
-  "images/lotExitNorth.png", // 29
-  "images/lotExitSouth.png", // 30
-  "images/lotExitWest.png", // 31
-  "images/lotNorth.png", // 32
-  "images/lotPark.png", // 33
-  "images/lotSouth.png", // 34
-  "images/lotWest.png", // 35
-  "images/roadCornerES.png", // 36
-  "images/roadCornerNE.png", // 37
-  "images/roadCornerNW.png", // 38
-  "images/roadCornerWS.png", // 39
-  "images/roadEast.png", // 40
-  "images/roadEndEast.png", // 41
-  "images/roadEndNorth.png", // 42
-  "images/roadEndSouth.png", // 43
-  "images/roadEndWest.png", // 44
-  "images/roadNorth.png", // 45
-  "images/roadTEast.png", // 46
-  "images/roadTNorth.png", // 47
-  "images/roadTSouth.png", // 48
-  "images/roadTWest.png"], // 49
-  map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 2, 2, 2, 2, 2, 2, 2, 2, 1], [1, 2, 2, 2, 2, 2, 2, 2, 2, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+window.GameDataObject = {
+  tiles: ["img/tiles/dirtHigh.png", "img/tiles/grass.png", "img/tiles/water.png", "img/tiles/waterCornerNorth.png"],
+
+  building: ["img/buildings/buildingTiles_001.png"],
+
+  map: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 2, 2, 2, 2, 2, 2, 1, 1], [1, 1, 2, 2, 2, 2, 2, 2, 1, 1], [1, 1, 2, 2, 2, 2, 2, 2, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 };
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports) {
 
-// A simple isometric tile renderer
-window.Isometric = {
+var buildingData = [{ buildingId: 0, Xi: 1, Yi: 0 }, { buildingId: 0, Xi: 0, Yi: 0 }, { buildingId: 0, Xi: 4, Yi: 0 }, { buildingId: 0, Xi: 7, Yi: 5 }, { buildingId: 0, Xi: 10, Yi: 7 }];
+
+window.Game = {
   tileColumnOffset: 100, // pixels
   tileRowOffset: 50, // pixels
 
@@ -47458,86 +47400,88 @@ window.Isometric = {
   canvas: undefined,
 
   tileImages: undefined,
+  buildingImages: undefined,
 
-  showCoordinates: false,
+  showCoordinates: true,
 
   load: function load() {
-    this.tileImages = new Array();
-    var loadedImages = 0;
-    var totalImages = IsometricMap.tiles.length;
+    var _this = this;
 
-    // Load all the images before we run the app
-    var self = this;
-    for (var i = 0; i < IsometricMap.tiles.length; i++) {
+    this.tileImages = new Array();
+    this.buildingImages = new Array();
+    var loadedImages = 0;
+    var totalImages = GameDataObject.tiles.length + GameDataObject.building.length;
+
+    // Load Tiles
+    for (var i = 0; i < GameDataObject.tiles.length; i++) {
       this.tileImages[i] = new Image();
+
       this.tileImages[i].onload = function () {
         if (++loadedImages >= totalImages) {
-          self.run();
+          _this.run();
         }
       };
-      this.tileImages[i].src = IsometricMap.tiles[i];
+
+      this.tileImages[i].src = GameDataObject.tiles[i];
+    }
+
+    // Load Buildings
+    for (var _i = 0; _i < GameDataObject.building.length; _i++) {
+      this.buildingImages[_i] = new Image();
+
+      this.buildingImages[_i].onload = function () {
+        if (++loadedImages >= totalImages) {
+          _this.run();
+        }
+      };
+
+      this.buildingImages[_i].src = GameDataObject.building[_i];
     }
   },
 
   run: function run() {
+    var _this2 = this;
+
     this.canvas = $('#isocanvas');
     this.context = this.canvas[0].getContext("2d");
 
-    this.Xtiles = IsometricMap.map.length;
-    this.Ytiles = IsometricMap.map[0].length;
+    this.Xtiles = GameDataObject.map.length;
+    this.Ytiles = GameDataObject.map[0].length;
 
-    var self = this;
     $(window).on('resize', function () {
-      self.updateCanvasSize();
-      self.redrawTiles();
+      _this2.updateCanvasSize();
+      _this2.redrawTiles();
+      _this2.redrawBuildings();
     });
 
     $(window).on('mousemove', function (e) {
-      e.pageX = e.pageX - self.tileColumnOffset / 2 - self.originX;
-      e.pageY = e.pageY - self.tileRowOffset / 2 - self.originY;
-      tileX = Math.round(e.pageX / self.tileColumnOffset - e.pageY / self.tileRowOffset);
-      tileY = Math.round(e.pageX / self.tileColumnOffset + e.pageY / self.tileRowOffset);
+      e.pageX = e.pageX - _this2.tileColumnOffset / 2 - _this2.originX;
+      e.pageY = e.pageY - _this2.tileRowOffset / 2 - _this2.originY;
+      tileX = Math.round(e.pageX / _this2.tileColumnOffset - e.pageY / _this2.tileRowOffset);
+      tileY = Math.round(e.pageX / _this2.tileColumnOffset + e.pageY / _this2.tileRowOffset);
 
-      self.selectedTileX = tileX;
-      self.selectedTileY = tileY;
-      self.redrawTiles();
-
-      // console.log(self.selectedTileX + ", " + self.selectedTileY);
+      _this2.selectedTileX = tileX;
+      _this2.selectedTileY = tileY;
+      _this2.redrawTiles();
+      _this2.redrawBuildings();
     });
 
-    $(window).on('click', function () {
-      self.showCoordinates = !self.showCoordinates;
-      self.redrawTiles();
+    $(window).on('click', function (e) {
+      _this2.addBuilding();
+      //this.showCoordinates = !this.showCoordinates;
+      //this.redrawTiles();
     });
 
     this.updateCanvasSize();
     this.redrawTiles();
+    this.redrawBuildings();
   },
 
-  drawBuldingsHouse: function drawBuldingsHouse() {
-    var houseImages = new Image();
-    houseImages.src = "/img/house.png";
-
-    var Xi = 4;
-    var Yi = 3;
-
-    var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX;
-    var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
-
-    this.context.drawImage(houseImages, offX, offY);
-  },
-
-  drawBuldingsTower: function drawBuldingsTower() {
-    var houseImages = new Image();
-    houseImages.src = "/img/tower.png";
-
-    var Xi = 9;
-    var Yi = 0;
-
-    var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX;
-    var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
-
-    this.context.drawImage(houseImages, offX, offY);
+  addBuilding: function addBuilding() {
+    if (this.selectedTileX > -1 && this.selectedTileY > -1 && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1) {
+      buildingData.push({ buildingId: 0, Xi: this.selectedTileX, Yi: this.selectedTileY });
+      this.redrawBuildings();
+    }
   },
 
   updateCanvasSize: function updateCanvasSize() {
@@ -47560,45 +47504,36 @@ window.Isometric = {
       }
     }
 
-    this.drawBuldingsHouse();
-    this.drawBuldingsTower();
-
-    //this.drawDiamond(this.selectedTileX, this.selectedTileY, 'yellow');
-    if (this.showCoordinates && this.isCursorOnMap()) {
-      this.context.fillStyle = 'yellow';
-      var idx = IsometricMap.map[this.selectedTileX][this.selectedTileY];
-      this.context.font = '14pt Arial';
-      this.context.fillText(IsometricMap.tiles[idx].replace("/assets/tiles/", ""), 20, 30);
-    }
+    this.drawDiamond(this.selectedTileX, this.selectedTileY, 'yellow');
   },
 
-  isCursorOnMap: function isCursorOnMap() {
-    return this.selectedTileX >= 0 && this.selectedTileX < this.Xtiles && this.selectedTileY >= 0 && this.selectedTileY < this.Ytiles;
+  redrawBuildings: function redrawBuildings() {
+    var _this3 = this;
+
+    var buildings = _.orderBy(buildingData, ["Xi", "Yi"], ['desc']);
+    buildings.forEach(function (item) {
+      _this3.drawBuilding(item.buildingId, item.Xi, item.Yi);
+    });
+  },
+
+  drawBuilding: function drawBuilding(buildingIndex, Xi, Yi) {
+    var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX + 5;
+    var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY - 38;
+
+    this.context.drawImage(this.buildingImages[buildingIndex], offX, offY);
   },
 
   drawTile: function drawTile(Xi, Yi) {
     var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX;
     var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
 
-    var imageIndex = IsometricMap.map[Xi][Yi];
+    var imageIndex = GameDataObject.map[Xi][Yi];
 
     this.context.drawImage(this.tileImages[imageIndex], offX, offY);
 
     if (this.showCoordinates) {
       this.context.fillStyle = 'orange';
       this.context.fillText(Xi + ", " + Yi, offX + this.tileColumnOffset / 2 - 9, offY + this.tileRowOffset / 2 + 3);
-    }
-  },
-
-  drawDiamond: function drawDiamond(Xi, Yi, color) {
-    if (this.isCursorOnMap()) {
-      var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX;
-      var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
-
-      this.drawLine(offX, offY + this.tileRowOffset / 2, offX + this.tileColumnOffset / 2, offY, color);
-      this.drawLine(offX + this.tileColumnOffset / 2, offY, offX + this.tileColumnOffset, offY + this.tileRowOffset / 2, color);
-      this.drawLine(offX + this.tileColumnOffset, offY + this.tileRowOffset / 2, offX + this.tileColumnOffset / 2, offY + this.tileRowOffset, color);
-      this.drawLine(offX + this.tileColumnOffset / 2, offY + this.tileRowOffset, offX, offY + this.tileRowOffset / 2, color);
     }
   },
 
@@ -47610,57 +47545,27 @@ window.Isometric = {
     this.context.moveTo(x1, y1);
     this.context.lineTo(x2, y2);
     this.context.stroke();
+  },
+
+  drawDiamond: function drawDiamond(Xi, Yi, color) {
+    if (this.isCursorOnMap() && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1) {
+      var offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX;
+      var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
+
+      this.drawLine(offX, offY + this.tileRowOffset / 2, offX + this.tileColumnOffset / 2, offY, color);
+      this.drawLine(offX + this.tileColumnOffset / 2, offY, offX + this.tileColumnOffset, offY + this.tileRowOffset / 2, color);
+      this.drawLine(offX + this.tileColumnOffset, offY + this.tileRowOffset / 2, offX + this.tileColumnOffset / 2, offY + this.tileRowOffset, color);
+      this.drawLine(offX + this.tileColumnOffset / 2, offY + this.tileRowOffset, offX, offY + this.tileRowOffset / 2, color);
+    }
+  },
+
+  isCursorOnMap: function isCursorOnMap() {
+    return this.selectedTileX >= 0 && this.selectedTileX < this.Xtiles && this.selectedTileY >= 0 && this.selectedTileY < this.Ytiles;
   }
 };
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(42)
-/* script */
-var __vue_script__ = __webpack_require__(43)
-/* template */
-var __vue_template__ = __webpack_require__(44)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/ExampleComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-299e239e", Component.options)
-  } else {
-    hotAPI.reload("data-v-299e239e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 41 */,
 /* 42 */
 /***/ (function(module, exports) {
 
@@ -47770,7 +47675,66 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 43 */
+/* 43 */,
+/* 44 */,
+/* 45 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(42)
+/* script */
+var __vue_script__ = __webpack_require__(51)
+/* template */
+var __vue_template__ = __webpack_require__(52)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/game/GameComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27b8af8e", Component.options)
+  } else {
+    hotAPI.reload("data-v-27b8af8e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47791,45 +47755,196 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            user: {
+                coins: 30,
+                group: '1B'
+            }
+        };
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        Game.load();
     }
 });
 
 /***/ }),
-/* 44 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "fixed flex flex-row",
+        staticStyle: { right: "50px", top: "20px" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "bg-white shadow-lg flex pr-5 items-center mr-5" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("span", { staticClass: "mt-1" }, [
+              _vm._v(_vm._s(_vm.user.group))
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "bg-white shadow-lg flex pr-5 items-center" },
+          [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("span", { staticClass: "mt-1" }, [
+              _vm._v(_vm._s(_vm.user.coins))
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("canvas", { attrs: { id: "isocanvas" } })
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
+    return _c(
+      "div",
+      {
+        staticClass: "fixed flex flex-row",
+        staticStyle: { left: "50px", top: "20px" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue text-white"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "bg-blue-dark text-white p-2 text-xs mr-5 flex items-center"
+              },
+              [_c("i", { staticClass: "fas fa-question" })]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
+            _c("span", { staticClass: "mt-1" }, [_vm._v("Beantwoord vragen")])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "bg-white shadow-lg flex pr-5 items-center bg-green text-white"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "bg-green-dark text-white p-2 text-xs mr-5 flex items-center"
+              },
+              [_c("i", { staticClass: "fas fa-star" })]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "mt-1" }, [_vm._v("Bekijk scorebord")])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "bg-blue text-white p-2 text-xs mr-5 flex items-center" },
+      [_c("i", { staticClass: "fas fa-users" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "bg-white shadow-lg flex pr-5 items-center mr-5" },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "bg-green text-white p-2 text-xs mr-5 flex items-center"
+          },
+          [_c("i", { staticClass: "fas fa-clock" })]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "mt-1" }, [_vm._v("476 n.Chr.")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "bg-red text-white p-2 text-xs mr-5 flex items-center justify-center"
+      },
+      [_c("i", { staticClass: "fas fa-coins" })]
+    )
   }
 ]
 render._withStripped = true
@@ -47837,15 +47952,390 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-27b8af8e", module.exports)
   }
 }
 
 /***/ }),
-/* 45 */
-/***/ (function(module, exports) {
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+var disposed = false
+var normalizeComponent = __webpack_require__(42)
+/* script */
+var __vue_script__ = __webpack_require__(54)
+/* template */
+var __vue_template__ = __webpack_require__(55)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/LoginComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4d2414bf", Component.options)
+  } else {
+    hotAPI.reload("data-v-4d2414bf", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            classes: [],
+            users: [],
+            form: {
+                classId: 0,
+                user: 0
+            }
+        };
+    },
+    mounted: function mounted() {
+        this.getClasses();
+    },
+
+
+    methods: {
+        getClasses: function getClasses() {
+            var _this = this;
+
+            axios.get('/api/class').then(function (response) {
+                _this.classes = response.data;
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
+        },
+        getUsersByClass: function getUsersByClass() {
+            var _this2 = this;
+
+            axios.post('/api/class/users', { classId: this.form.classId }).then(function (response) {
+                _this2.users = response.data;
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "container mx-auto h-full flex justify-center items-center"
+    },
+    [
+      _c("div", { staticClass: "w-1/3" }, [
+        _c("h1", { staticClass: "font-hairline mb-6 text-center" }, [
+          _vm._v("GameNaam")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "border-blue p-8 border-t-4 bg-white mb-6 shadow-lg" },
+          [
+            _c("div", [
+              _c("div", { staticClass: "relative" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.classId,
+                        expression: "form.classId"
+                      }
+                    ],
+                    staticClass:
+                      "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "classId",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.getUsersByClass
+                      ]
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { selected: "", disabled: "", value: "0" } },
+                      [_vm._v("Selecteer je klas")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.classes, function(item) {
+                      return _c(
+                        "option",
+                        { key: item.id, domProps: { value: item.id } },
+                        [_vm._v(_vm._s(item.name))]
+                      )
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.users.length > 0
+              ? _c("div", { staticClass: "mt-4" }, [
+                  _c("div", { staticClass: "relative" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.user,
+                            expression: "form.user"
+                          }
+                        ],
+                        staticClass:
+                          "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "user",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { selected: "", disabled: "", value: "0" } },
+                          [_vm._v("Selecteer je naam")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.users, function(item) {
+                          return _c("option", { domProps: { value: item } }, [
+                            _vm._v(_vm._s(item.name))
+                          ])
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "fill-current h-4 w-4",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 20 20"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.form.user !== 0
+              ? _c("div", { staticClass: "mt-6" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2",
+                      attrs: { for: "grid-password" }
+                    },
+                    [_vm._v("\n                    Code\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass:
+                      "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded border-grey-lighter py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+                    attrs: {
+                      id: "grid-password",
+                      type: "password",
+                      placeholder: "******"
+                    }
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.form.user !== 0
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("\n               Log in\n            ")]
+                )
+              : _vm._e()
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4d2414bf", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

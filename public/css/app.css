@@ -1,4 +1,12 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
+@import url(https://fonts.googleapis.com/css?family=IM+Fell+English);@import url(https://fonts.googleapis.com/css?family=Montserrat);.font-im {
+  font-family: 'IM Fell English', serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
    ========================================================================== */
