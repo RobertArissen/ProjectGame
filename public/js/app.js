@@ -48047,14 +48047,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -48102,230 +48094,201 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "container mx-auto h-full flex justify-center items-center"
-    },
-    [
-      _c("div", { staticClass: "w-1/3" }, [
-        _c("h1", { staticClass: "font-hairline mb-6 text-center" }, [
-          _vm._v("GameNaam")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "border-blue p-8 border-t-4 bg-white mb-6 shadow-lg" },
-          [
-            _c("div", [
-              _c("div", { staticClass: "relative" }, [
-                _c(
-                  "select",
+  return _c("div", [
+    _c("div", { staticClass: "relative" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.form.classId,
+              expression: "form.classId"
+            }
+          ],
+          staticClass:
+            "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.form,
+                  "classId",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
+              },
+              _vm.getUsersByClass
+            ]
+          }
+        },
+        [
+          _c("option", { attrs: { selected: "", disabled: "", value: "0" } }, [
+            _vm._v("Selecteer je klas")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.classes, function(item) {
+            return _c(
+              "option",
+              { key: item.id, domProps: { value: item.id } },
+              [_vm._v(_vm._s(item.name))]
+            )
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+        },
+        [
+          _c(
+            "svg",
+            {
+              staticClass: "fill-current h-4 w-4",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                viewBox: "0 0 20 20"
+              }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d:
+                    "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                }
+              })
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.users.length > 0
+      ? _c("div", { staticClass: "mt-4" }, [
+          _c("div", { staticClass: "relative" }, [
+            _c(
+              "select",
+              {
+                directives: [
                   {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.classId,
-                        expression: "form.classId"
-                      }
-                    ],
-                    staticClass:
-                      "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.form,
-                            "classId",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                        _vm.getUsersByClass
-                      ]
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      { attrs: { selected: "", disabled: "", value: "0" } },
-                      [_vm._v("Selecteer je klas")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.classes, function(item) {
-                      return _c(
-                        "option",
-                        { key: item.id, domProps: { value: item.id } },
-                        [_vm._v(_vm._s(item.name))]
-                      )
-                    })
-                  ],
-                  2
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.user,
+                    expression: "form.user"
+                  }
+                ],
+                staticClass:
+                  "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+                attrs: { name: "email" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.form,
+                      "user",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  { attrs: { selected: "", disabled: "", value: "0" } },
+                  [_vm._v("Selecteer je naam")]
                 ),
                 _vm._v(" "),
+                _vm._l(_vm.users, function(item) {
+                  return _c("option", { domProps: { value: item.email } }, [
+                    _vm._v(_vm._s(item.name))
+                  ])
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+              },
+              [
                 _c(
-                  "div",
+                  "svg",
                   {
-                    staticClass:
-                      "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+                    staticClass: "fill-current h-4 w-4",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 20 20"
+                    }
                   },
                   [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "fill-current h-4 w-4",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 20 20"
-                        }
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d:
-                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                          }
-                        })
-                      ]
-                    )
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                      }
+                    })
                   ]
                 )
-              ])
-            ]),
-            _vm._v(" "),
-            _vm.users.length > 0
-              ? _c("div", { staticClass: "mt-4" }, [
-                  _c("div", { staticClass: "relative" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.user,
-                            expression: "form.user"
-                          }
-                        ],
-                        staticClass:
-                          "block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-grey",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "user",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { selected: "", disabled: "", value: "0" } },
-                          [_vm._v("Selecteer je naam")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.users, function(item) {
-                          return _c("option", { domProps: { value: item } }, [
-                            _vm._v(_vm._s(item.name))
-                          ])
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
-                      },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "fill-current h-4 w-4",
-                            attrs: {
-                              xmlns: "http://www.w3.org/2000/svg",
-                              viewBox: "0 0 20 20"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.form.user !== 0
-              ? _c("div", { staticClass: "mt-6" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass:
-                        "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2",
-                      attrs: { for: "grid-password" }
-                    },
-                    [_vm._v("\n                    Code\n                ")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass:
-                      "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded border-grey-lighter py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey",
-                    attrs: {
-                      id: "grid-password",
-                      type: "password",
-                      placeholder: "******"
-                    }
-                  })
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.form.user !== 0
-              ? _c(
-                  "button",
-                  {
-                    staticClass:
-                      "bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("\n               Log in\n            ")]
-                )
-              : _vm._e()
-          ]
+              ]
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.form.user !== 0
+      ? _c("div", { staticClass: "mt-6" }, [
+          _c(
+            "label",
+            {
+              staticClass:
+                "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2",
+              attrs: { for: "grid-password" }
+            },
+            [_vm._v("\n            Code\n        ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass:
+              "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded border-grey-lighter py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey",
+            attrs: { name: "password", type: "password", placeholder: "******" }
+          })
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.form.user !== 0
+      ? _c(
+          "button",
+          {
+            staticClass:
+              "bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("\n        Log in\n    ")]
         )
-      ])
-    ]
-  )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
