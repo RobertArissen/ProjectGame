@@ -1,9 +1,8 @@
 let buildingData = [
   {buildingId: 0, Xi: 1, Yi: 0},
-  {buildingId: 0, Xi: 0, Yi: 0},
-  {buildingId: 0, Xi: 4, Yi: 0},
-  {buildingId: 0, Xi: 7, Yi: 5},
-  {buildingId: 0, Xi: 10, Yi: 7},
+  {buildingId: 1, Xi: 2, Yi: 2},
+  {buildingId: 2, Xi: 7, Yi: 2},
+  {buildingId: 3, Xi: 9, Yi: 6}
 ]
 
 window.Game = {
@@ -18,6 +17,8 @@ window.Game = {
 
     selectedTileX: -1,
     selectedTileY: -1,
+
+    buyModalOpen: false,
   
     context: undefined,
     canvas: undefined,
@@ -56,7 +57,7 @@ window.Game = {
           }
         };
 
-        this.buildingImages[i].src = GameDataObject.building[i];
+        this.buildingImages[i].src = GameDataObject.building[i].img;
       }
   
     },
@@ -87,7 +88,17 @@ window.Game = {
       });
   
       $(window).on('click', (e) => {
-        this.addBuilding()
+        if(this.selectedTileX > -1 
+          && this.selectedTileY > -1 
+          && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1
+          && !this.buyModalOpen
+        ){
+            console.log(this.buyModalOpen)
+            this.buyModalOpen = true
+            EventBus.$emit('openBuyBuilding', {Xi: this.selectedTileX, Yi: this.selectedTileY});
+          }
+
+        //this.addBuilding()
         //this.showCoordinates = !this.showCoordinates;
         //this.redrawTiles();
       });
@@ -138,8 +149,8 @@ window.Game = {
     },
 
     drawBuilding: function(buildingIndex, Xi, Yi) {
-      let offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX + 5;
-      let offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY-38;
+      let offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX + GameDataObject.building[buildingIndex].offX;
+      let offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY - GameDataObject.building[buildingIndex].offY;
   
       this.context.drawImage(this.buildingImages[buildingIndex], offX, offY);
     },
@@ -185,4 +196,5 @@ window.Game = {
               this.selectedTileY >= 0 && this.selectedTileY < this.Ytiles);
     },
   };
+  
   

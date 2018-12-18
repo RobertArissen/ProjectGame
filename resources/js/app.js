@@ -29,6 +29,7 @@ require('./game/index');
 
 Vue.component('login-compontent', require('./components/LoginComponent.vue'));
 Vue.component('game-compontent', require('./components/game/GameComponent.vue'));
+Vue.component('buy-houses-compontent', require('./components/game/BuyHousesComponent.vue'));
 
 
 /**
@@ -36,6 +37,8 @@ Vue.component('game-compontent', require('./components/game/GameComponent.vue'))
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+window.EventBus = new Vue();
 
 const app = new Vue({
     el: '#app'

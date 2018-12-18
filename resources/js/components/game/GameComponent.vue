@@ -21,14 +21,14 @@
                 <div class="bg-blue text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-users"></i>
                 </div>
-                <span class="mt-1">{{user.group}}</span>
+                <span class="mt-1" v-if="user.class">{{user.class.name}}</span>
             </div>
 
             <div class="bg-white shadow-lg flex pr-5 items-center mr-5">
                 <div class="bg-green text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-clock"></i>
                 </div>
-                <span class="mt-1">476 n.Chr.</span>
+                <span class="mt-1">{{period.name}}</span>
             </div>
 
             <div class="bg-white shadow-lg flex pr-5 items-center">
@@ -39,6 +39,8 @@
             </div>
         </div>
 
+        <buy-houses-compontent :period="period" :user="user"></buy-houses-compontent>
+        
         <canvas id="isocanvas"></canvas>
     </div>
 </template>
@@ -47,20 +49,29 @@
     export default {
         data(){
             return {
-                user: {
-                    coins: 30,
-                    group: '1B'
-                }
+                user: {},
+                period: {}
             }
         },
 
         mounted() {
             Game.load()
-
-            axios.get('/api/user')
-            .then(response => {
-                console.log(response.data);
-            });
+            this.loadUser();
         },
+
+        methods: {
+            loadUser(){
+                axios.get('/api/user')
+                .then(response => {
+                    this.user = response.data;
+                    return response.data
+                }).then((user) => {
+                    axios.get('/api/period/' + user.class.periods_id)
+                        .then(response => {
+                            this.period = response.data;
+                        })
+                });
+            }
+        }
     }
 </script>
