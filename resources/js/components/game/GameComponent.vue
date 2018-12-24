@@ -65,7 +65,6 @@
 
         methods: {
             loadUser(){
-                console.log('hee')
                 axios.get('/api/user')
                 .then(response => {
                     this.user = response.data;

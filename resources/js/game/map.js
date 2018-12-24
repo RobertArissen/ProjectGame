@@ -9,8 +9,8 @@ window.GameDataObject = {
     building: [
       {img: "img/buildings/building_0.png", offX: 5, offY: 38},
       {img: "img/buildings/building_1.png", offX: 4, offY: 54},
-      {img: "img/buildings/building_2.png", offX: 5, offY: 45},
-      {img: "img/buildings/building_3.png", offX: 5, offY: 25}
+      {img: "img/buildings/building_2.png", offX: 6, offY: 46},
+      {img: "img/buildings/building_3.png", offX: 6, offY: 27}
     ],
 
     map: [
