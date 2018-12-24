@@ -17,7 +17,11 @@ use Illuminate\Http\Request;
 /* Auth Api's */
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', 'API\UserController@index');
+    Route::get('/user/buildings', 'API\UserController@buildings');
+    Route::post('/user/buildings/buy', 'API\UserController@buyBuilding');
+
     Route::get('/period/{id}', 'API\PeriodController@byId');
+
     Route::get('/building', 'API\BuildingController@index');
 });
 

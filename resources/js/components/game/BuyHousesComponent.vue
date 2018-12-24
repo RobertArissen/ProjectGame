@@ -17,7 +17,7 @@
                                 <span class="mt-1">{{building.price}}</span>
                             </div>
 
-                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-2" v-if="user.coins >= building.price">
+                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-2" v-if="user.coins >= building.price"  @click="buyBuilding(building.index)">
                                 <div class="bg-blue-dark text-white p-2 text-xs mr-5 flex items-center">
                                     <i class="fas fa-check"></i>
                                 </div>
@@ -45,6 +45,8 @@
                 visible: false,
                 buildings: null,
                 buildingMap: [],
+                Xi: 0,
+                Yi: 0
             }
         },
 
@@ -54,6 +56,8 @@
 
             EventBus.$on('openBuyBuilding', data => {
                 if(Game.buyModalOpen) this.visible = true
+                this.Xi = data.Xi
+                this.Yi = data.Yi
             })
         },
 
@@ -72,7 +76,34 @@
                     Game.buyModalOpen = false
                 }, 500);
 
-            }
+            },
+
+            buyBuilding(index){
+                axios.post('/api/user/buildings/buy', {buildingId: index, Xi: this.Xi, Yi: this.Yi})
+                    .then(response => {
+                        if(response.data.success){
+                            EventBus.$emit('reloadUserData', true)
+
+                            this.closeModal()
+
+                            this.$notify({
+                                group: 'notify',
+                                type:'success',
+                                title: 'Gekocht',
+                                text: 'Je hebt het gebouw gekocht'
+                            })
+
+
+                        } else{
+                            this.$notify({
+                                group: 'notify',
+                                type:'error',
+                                title: 'Er is iets fout gegaan',
+                                text: response.data.error
+                            })
+                        }
+                    })
+            },
         }
     }
 </script>

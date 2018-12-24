@@ -1,9 +1,4 @@
-let buildingData = [
-  {buildingId: 0, Xi: 1, Yi: 0},
-  {buildingId: 1, Xi: 2, Yi: 2},
-  {buildingId: 2, Xi: 7, Yi: 2},
-  {buildingId: 3, Xi: 9, Yi: 6}
-]
+let buildingData = []
 
 window.Game = {
     tileColumnOffset: 100, // pixels
@@ -26,7 +21,7 @@ window.Game = {
     tileImages: undefined,
     buildingImages: undefined,
 
-    showCoordinates: true,
+    showCoordinates: false,
   
     load: function() {
       this.tileImages = new Array();
@@ -92,8 +87,8 @@ window.Game = {
           && this.selectedTileY > -1 
           && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1
           && !this.buyModalOpen
+          && !this.isInUse(this.selectedTileX, this.selectedTileY)
         ){
-            console.log(this.buyModalOpen)
             this.buyModalOpen = true
             EventBus.$emit('openBuyBuilding', {Xi: this.selectedTileX, Yi: this.selectedTileY});
           }
@@ -102,20 +97,18 @@ window.Game = {
         //this.showCoordinates = !this.showCoordinates;
         //this.redrawTiles();
       });
+
+      /* Events */
+      EventBus.$on('addBuilding', data => this.addBuilding(data));
   
       this.updateCanvasSize();
       this.redrawTiles();
       this.redrawBuildings()
     },
 
-    addBuilding: function(){
-      if(this.selectedTileX > -1 
-          && this.selectedTileY > -1 
-          && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1
-      ){
-        buildingData.push({buildingId: 0, Xi: this.selectedTileX, Yi: this.selectedTileY});
-        this.redrawBuildings();
-      }
+    addBuilding: function(data){
+      buildingData.push({buildingId: data.building.index, Xi: data.x, Yi: data.y});
+      this.redrawBuildings();
     },
   
     updateCanvasSize: function() {
@@ -138,7 +131,7 @@ window.Game = {
         }
       }
 
-      this.drawDiamond(this.selectedTileX, this.selectedTileY, 'yellow');
+      this.drawDiamond(this.selectedTileX, this.selectedTileY, this.isInUse(this.selectedTileX, this.selectedTileY) ? 'red' : 'yellow');
     },
 
     redrawBuildings: function() {
@@ -194,6 +187,14 @@ window.Game = {
     isCursorOnMap: function() {
       return (this.selectedTileX >= 0 && this.selectedTileX < this.Xtiles &&
               this.selectedTileY >= 0 && this.selectedTileY < this.Ytiles);
+    },
+
+    isInUse: function(Xi, Yi){
+      const filtered = _.filter(buildingData, (data) => {
+        return data.Xi === Xi && data.Yi === Yi;
+      });
+
+      return filtered.length > 0
     },
   };
   

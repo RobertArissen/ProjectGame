@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Robert Arissen',
             'email' => 'robert.arissen@student.hu.nl',
             'class_id' => 1,
-            'coins' => 100,
+            'coins' => 400,
             'password' => Hash::make('123')
         ]);
 
@@ -82,6 +82,27 @@ class DatabaseSeeder extends Seeder
             'price' => 150,
             'periods_id' => 1,
             'index' => 3,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        /* Seed User Buildings */
+        DB::table('users_buildings')->insert([
+            'users_id' => 1,
+            'periods_id' => 1,
+            'building_id' => rand(1, 4),
+            'x' => rand(0, 3),
+            'y' => rand(0, 9),
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        DB::table('users_buildings')->insert([
+            'users_id' => 1,
+            'periods_id' => 1,
+            'building_id' => rand(1, 4),
+            'x' => rand(7, 10),
+            'y' => rand(0, 9),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);

@@ -42,6 +42,8 @@
         <buy-houses-compontent :period="period" :user="user"></buy-houses-compontent>
         
         <canvas id="isocanvas"></canvas>
+
+        <notifications group="notify" />
     </div>
 </template>
 
@@ -57,13 +59,19 @@
         mounted() {
             Game.load()
             this.loadUser();
+
+            EventBus.$on('reloadUserData', data => this.loadUser()) 
         },
 
         methods: {
             loadUser(){
+                console.log('hee')
                 axios.get('/api/user')
                 .then(response => {
                     this.user = response.data;
+                    
+                    this.loadBuildings()
+
                     return response.data
                 }).then((user) => {
                     axios.get('/api/period/' + user.class.periods_id)
@@ -71,7 +79,18 @@
                             this.period = response.data;
                         })
                 });
-            }
+            },
+            
+            loadBuildings(){
+                axios.get('/api/user/buildings')
+                    .then(response => {
+                        const result = response.data;
+
+                        Object.keys(result).forEach(function(key) {
+                            EventBus.$emit('addBuilding', result[key])
+                        });
+                    })
+            },
         }
     }
 </script>
