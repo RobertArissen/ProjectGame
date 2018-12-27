@@ -13,7 +13,7 @@ window.Game = {
     selectedTileX: -1,
     selectedTileY: -1,
 
-    buyModalOpen: false,
+    modalOpen: false,
   
     context: undefined,
     canvas: undefined,
@@ -86,10 +86,11 @@ window.Game = {
         if(this.selectedTileX > -1 
           && this.selectedTileY > -1 
           && GameDataObject.map[this.selectedTileX][this.selectedTileY] === 1
-          && !this.buyModalOpen
+          && !this.modalOpen
           && !this.isInUse(this.selectedTileX, this.selectedTileY)
         ){
-            this.buyModalOpen = true
+            console.log(this.modalOpen)
+            this.modalOpen = true
             EventBus.$emit('openBuyBuilding', {Xi: this.selectedTileX, Yi: this.selectedTileY});
           }
 
