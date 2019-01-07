@@ -55,7 +55,7 @@
             this.loadHouses()
 
             EventBus.$on('openBuyBuilding', data => {
-                if(Game.buyModalOpen) this.visible = true
+                if(Game.modalOpen) this.visible = true
                 this.Xi = data.Xi
                 this.Yi = data.Yi
             })
@@ -73,7 +73,7 @@
                 this.visible = false
                 
                 setTimeout(() => {
-                    Game.buyModalOpen = false
+                    Game.modalOpen = false
                 }, 500);
 
             },

@@ -1,12 +1,14 @@
 <template>
     <div>
         <div class="fixed flex flex-row" style="left:50px; top: 20px">
-            <div class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue text-white">
+            <button 
+            class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white"
+            @click="openQuiz">
                 <div class="bg-blue-dark text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-question"></i>
                 </div>
                 <span class="mt-1">Beantwoord vragen</span>
-            </div>
+            </button>
 
             <div class="bg-white shadow-lg flex pr-5 items-center bg-green text-white">
                 <div class="bg-green-dark text-white p-2 text-xs mr-5 flex items-center">
@@ -40,6 +42,7 @@
         </div>
 
         <buy-houses-compontent :period="period" :user="user"></buy-houses-compontent>
+        <quiz-component></quiz-component>
         
         <canvas id="isocanvas"></canvas>
 
@@ -89,6 +92,10 @@
                             EventBus.$emit('addBuilding', result[key])
                         });
                     })
+            },
+
+            openQuiz() {
+                EventBus.$emit('openQuizModal', {Xi: this.selectedTileX, Yi: this.selectedTileY});
             },
         }
     }
