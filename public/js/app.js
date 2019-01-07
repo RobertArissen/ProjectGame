@@ -49026,7 +49026,6 @@ window.Game = {
 
     $(window).on('click', function (e) {
       if (_this2.selectedTileX > -1 && _this2.selectedTileY > -1 && GameDataObject.map[_this2.selectedTileX][_this2.selectedTileY] === 1 && !_this2.modalOpen && !_this2.isInUse(_this2.selectedTileX, _this2.selectedTileY)) {
-        console.log(_this2.modalOpen);
         _this2.modalOpen = true;
         EventBus.$emit('openBuyBuilding', { Xi: _this2.selectedTileX, Yi: _this2.selectedTileY });
       }
@@ -50213,7 +50212,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50288,6 +50287,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50333,10 +50340,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         startQuiz: function startQuiz() {
             this.introStage = false;
             this.questionStage = true;
-            console.log("test" + JSON.stringify(this.questions[this.currentQuestion]));
         },
         handleAnswer: function handleAnswer(e) {
-            console.log("answer event ftw", e);
             this.answers[this.currentQuestion] = e.answer;
             if (this.currentQuestion + 1 === this.questions.length) {
                 this.handleResults();
@@ -50349,7 +50354,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleResults: function handleResults() {
             var _this2 = this;
 
-            console.log("handle results");
             this.questions.forEach(function (question, questionNumber) {
                 var yourAnswers = _this2.answers[questionNumber];
                 var questionAnswers = question.answer;
@@ -50368,7 +50372,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
             this.perc = (this.correct / this.questions.length * 100).toFixed(2);
-            console.log(this.correct + " " + this.perc);
         },
         closeModal: function closeModal() {
             this.visible = false;
@@ -50413,15 +50416,35 @@ var render = function() {
                 ? _c("div", [
                     _c("h1", [_vm._v("Welkom bij: " + _vm._s(_vm.title))]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "static pin-b bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full",
-                        on: { click: _vm.startQuiz }
-                      },
-                      [_vm._v("\n                START!\n            ")]
-                    )
+                    _c("div", { staticClass: "mt-5" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "text-white font-bold py-2 px-4  bg-blue hover:bg-blue-dark",
+                          on: { click: _vm.startQuiz }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    START!\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
+                          on: { click: _vm.closeModal }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Sluiten\n                "
+                          )
+                        ]
+                      )
+                    ])
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -50434,7 +50457,10 @@ var render = function() {
                           question: _vm.questions[_vm.currentQuestion],
                           "question-number": _vm.currentQuestion + 1
                         },
-                        on: { answer: _vm.handleAnswer }
+                        on: {
+                          answer: _vm.handleAnswer,
+                          closeModal: _vm.closeModal
+                        }
                       })
                     ],
                     1
@@ -50444,28 +50470,31 @@ var render = function() {
               _vm.resultsStage
                 ? _c("div", [
                     _vm._v(
-                      "Je hebt " +
+                      "\n            Je hebt " +
                         _vm._s(_vm.correct) +
                         " van de " +
                         _vm._s(_vm.questions.length) +
                         " vragen goed. Het percentage is " +
                         _vm._s(_vm.perc) +
-                        "%."
-                    )
+                        "%.\n                "
+                    ),
+                    _c("div", { staticClass: "mt-5" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
+                          on: { click: _vm.closeModal }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Sluiten\n                "
+                          )
+                        ]
+                      )
+                    ])
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "flex justify-center mt-8" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
-                    on: { click: _vm.closeModal }
-                  },
-                  [_vm._v("\n                Sluiten\n            ")]
-                )
-              ])
+                : _vm._e()
             ]
           )
         ]
@@ -50568,7 +50597,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50581,6 +50610,17 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuedraggable__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50650,6 +50690,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     submitAnswer: function submitAnswer() {
       this.$emit('answer', { answer: this.answer });
       this.answer = null;
+    },
+
+    closeModal: function closeModal() {
+      this.$emit('closeModal');
     }
   }
 });
@@ -52645,7 +52689,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "h-64" }, [
+  return _c("div", [
     _c("strong", [_vm._v("Vraag " + _vm._s(_vm.questionNumber) + ":")]),
     _c("br"),
     _vm._v(" "),
@@ -52787,7 +52831,7 @@ var render = function() {
                       "border border-gray rounded-lg w-auto p-1 m-1 cursor-move text-center",
                     attrs: { value: element }
                   },
-                  [_vm._v("\n        " + _vm._s(element) + "\n      ")]
+                  [_vm._v("\n          " + _vm._s(element) + "\n      ")]
                 )
               })
             )
@@ -52796,15 +52840,25 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c("span", { staticClass: "flex justify-end" }, [
+    _c("div", { staticClass: "mt-5" }, [
       _c(
         "button",
         {
           staticClass:
-            "bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full",
+            "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
+          on: { click: _vm.closeModal }
+        },
+        [_vm._v("\n          Sluiten\n      ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "text-white font-bold py-2 px-4 bg-blue hover:bg-blue-dark",
           on: { click: _vm.submitAnswer }
         },
-        [_vm._v("Antwoord")]
+        [_vm._v("\n          Antwoord\n      ")]
       )
     ])
   ])

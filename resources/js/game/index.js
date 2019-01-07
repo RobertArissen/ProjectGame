@@ -89,7 +89,6 @@ window.Game = {
           && !this.modalOpen
           && !this.isInUse(this.selectedTileX, this.selectedTileY)
         ){
-            console.log(this.modalOpen)
             this.modalOpen = true
             EventBus.$emit('openBuyBuilding', {Xi: this.selectedTileX, Yi: this.selectedTileY});
           }

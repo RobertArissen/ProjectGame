@@ -4,24 +4,32 @@
             <div v-if="introStage">
                 <h1>Welkom bij: {{title}}</h1>
 
-                <button 
-                class="static pin-b bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full"
-                @click="startQuiz">
-                    START!
-                </button>
+                <div class="mt-5">
+                    <button 
+                    class="text-white font-bold py-2 px-4  bg-blue hover:bg-blue-dark"
+                    @click="startQuiz">
+                        START!
+                    </button>
+                    
+                    <button class="flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark"
+                    @click="closeModal">
+                        Sluiten
+                    </button>
+                </div>
             </div>
 
             <div v-if="questionStage">
-                <question-component :question="questions[currentQuestion]" v-on:answer="handleAnswer" :question-number="currentQuestion+1"></question-component>
+                <question-component :question="questions[currentQuestion]" v-on:answer="handleAnswer" v-on:closeModal="closeModal" :question-number="currentQuestion+1"></question-component>
             </div>
 
-            <div v-if="resultsStage">Je hebt {{correct}} van de {{questions.length}} vragen goed. Het percentage is {{perc}}%.</div>
-
-            <div class="flex justify-center mt-8">
-                <button class="flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark"
-                @click="closeModal">
-                    Sluiten
-                </button>
+            <div v-if="resultsStage">
+                Je hebt {{correct}} van de {{questions.length}} vragen goed. Het percentage is {{perc}}%.
+                    <div class="mt-5">                  
+                    <button class="flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark"
+                    @click="closeModal">
+                        Sluiten
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -70,12 +78,8 @@ export default {
         startQuiz() {
             this.introStage = false;
             this.questionStage = true;
-            console.log(
-                "test" + JSON.stringify(this.questions[this.currentQuestion])
-            );
         },
         handleAnswer(e) {
-            console.log("answer event ftw", e);
             this.answers[this.currentQuestion] = e.answer;
             if (this.currentQuestion + 1 === this.questions.length) {
                 this.handleResults();
@@ -86,7 +90,6 @@ export default {
             }
         },
         handleResults() {
-            console.log("handle results");
             this.questions.forEach((question, questionNumber) => {
                 let yourAnswers = this.answers[questionNumber];
                 let questionAnswers = question.answer;
@@ -105,9 +108,8 @@ export default {
                 }
             });
             this.perc = ((this.correct / this.questions.length) * 100).toFixed(2);
-            console.log(this.correct + " " + this.perc);
         },
-        closeModal(){
+        closeModal() {
             this.visible = false
             
             setTimeout(() => {

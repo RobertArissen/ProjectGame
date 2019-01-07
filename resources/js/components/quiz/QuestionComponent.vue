@@ -1,5 +1,5 @@
 <template>
-  <div class="h-64">
+  <div>
     <strong>Vraag {{ questionNumber }}:</strong><br/>
     <strong>{{ question.text }} </strong>
 
@@ -30,14 +30,25 @@
     <div class="flex justify-center p-4" v-if="question.type === 'sort'">
       <draggable class="w-1/2 p-1" v-model="answer" @start="drag=true" @end="drag=false">
         <div class="border border-gray rounded-lg w-auto p-1 m-1 cursor-move text-center" :value="element" v-for="element in answer" :key="element">
-          {{element}}
+            {{element}}
         </div>
       </draggable>
     </div>
 
-    <span class="flex justify-end">
-      <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mt-4 w-full" @click="submitAnswer">Antwoord</button>
-    </span>
+
+    <div class="mt-5">
+        <button 
+        class="flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark"
+        @click="closeModal">
+            Sluiten
+        </button>
+        
+        <button 
+        class="text-white font-bold py-2 px-4 bg-blue hover:bg-blue-dark"
+        @click="submitAnswer">
+            Antwoord
+        </button>
+    </div>
   </div>
 </template>
 
@@ -48,7 +59,7 @@ export default {
   name: 'Question',
   data() {
     return {
-      answer:null
+      answer: null
     }
   },
   components: {
@@ -66,7 +77,11 @@ export default {
       submitAnswer:function() {
         this.$emit('answer', {answer:this.answer});
         this.answer = null;
-      }
+      },
+
+      closeModal() {
+        this.$emit('closeModal');
+      },
   }
 }
 </script>
