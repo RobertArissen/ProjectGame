@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserBuldings extends Migration
+class CreateQuestionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateUserBuldings extends Migration
      */
     public function up()
     {
-        Schema::create('users_buldings', function (Blueprint $table) {
+        Schema::create('question', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('users_id');
-            $table->integer('periods_id');
-            $table->integer('buildings_id');
-            $table->integer('x');
-            $table->integer('y');
+            $table->text('name');
+            $table->integer('points')->default(0);
+            $table->integer('questionType_id');
+            $table->integer('period_id');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateUserBuldings extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_buldings');
+        Schema::dropIfExists('question');
     }
 }
