@@ -33,4 +33,9 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->belongsTo('App\ClassModel');
     }
+
+    public function answeredQuestions()
+    {
+        return $this->belongsToMany('App\Question', 'users_questions', 'users_id', 'question_id');
+    }
 }

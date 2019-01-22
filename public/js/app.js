@@ -42547,7 +42547,7 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(17);
-module.exports = __webpack_require__(68);
+module.exports = __webpack_require__(67);
 
 
 /***/ }),
@@ -42591,7 +42591,7 @@ Vue.component('login-compontent', __webpack_require__(45));
 Vue.component('game-compontent', __webpack_require__(48));
 Vue.component('buy-houses-compontent', __webpack_require__(51));
 Vue.component('quiz-component', __webpack_require__(54));
-Vue.component('question-component', __webpack_require__(61));
+Vue.component('question-component', __webpack_require__(60));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -50139,7 +50139,7 @@ var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(58)
 /* template */
-var __vue_template__ = __webpack_require__(60)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50212,7 +50212,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50256,8 +50256,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__questions_json__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__questions_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__questions_json__);
 //
 //
 //
@@ -50295,23 +50293,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            visible: false,
+
             introStage: false,
             questionStage: false,
             resultsStage: false,
-            visible: false,
-            title: "",
+
             questions: [],
             currentQuestion: 0,
-            answers: [],
+
             correct: 0,
-            perc: null,
-            data: __WEBPACK_IMPORTED_MODULE_0__questions_json___default.a
+            pointsEarned: 0,
+            questionsAnswered: 0,
+            timer: 0,
+
+            answerIsCorrect: null,
+            correctAnswer: null
         };
     },
     mounted: function mounted() {
@@ -50327,51 +50373,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         init: function init() {
+            var _this2 = this;
+
+            this.introStage = false;
             this.questionStage = false;
             this.resultsStage = false;
 
-            this.title = __WEBPACK_IMPORTED_MODULE_0__questions_json___default.a.title;
-            this.questions = __WEBPACK_IMPORTED_MODULE_0__questions_json___default.a.questions;
-            this.introStage = true;
             this.currentQuestion = 0;
-            this.answers = [];
-            this.perc = null;
+
+            this.correct = 0;
+            this.pointsEarned = 0;
+            this.questionsAnswered = 0;
+            this.timer = 0;
+
+            this.answerIsCorrect = null;
+            this.correctAnswer = null;
+
+            this.questions = [];
+
+            axios.get('/api/question').then(function (response) {
+                _this2.questions = response.data;
+                _this2.introStage = true;
+            });
         },
         startQuiz: function startQuiz() {
             this.introStage = false;
+            this.resultsStage = false;
             this.questionStage = true;
         },
-        handleAnswer: function handleAnswer(e) {
-            this.answers[this.currentQuestion] = e.answer;
-            if (this.currentQuestion + 1 === this.questions.length) {
-                this.handleResults();
-                this.questionStage = false;
-                this.resultsStage = true;
-            } else {
-                this.currentQuestion++;
-            }
+        stopQuiz: function stopQuiz() {
+            this.introStage = false;
+            this.questionStage = false;
+            this.resultsStage = true;
         },
-        handleResults: function handleResults() {
-            var _this2 = this;
+        handleAnswer: function handleAnswer(e) {
+            var _this3 = this;
 
-            this.questions.forEach(function (question, questionNumber) {
-                var yourAnswers = _this2.answers[questionNumber];
-                var questionAnswers = question.answer;
+            this.questionsAnswered++;
+            var questionId = e.questionId;
+            var answer = e.answer;
 
-                if (yourAnswers === questionAnswers) {
-                    _this2.correct++;
-                }
+            axios.post('/api/question/answer', { questionId: questionId, answer: answer }).then(function (response) {
+                _this3.answerIsCorrect = response.data.answerIsCorrect;
+                _this3.pointsEarned += response.data.pointsEarned;
 
-                if (yourAnswers instanceof Array) {
-                    if (yourAnswers.length != questionAnswers.length) return;
+                if (_this3.answerIsCorrect) _this3.correct++;
 
-                    for (var i = 0; i < yourAnswers.length; ++i) {
-                        if (yourAnswers[i] !== questionAnswers[i]) return;
-                    }
-                    _this2.correct++;
-                }
+                axios.get('/api/question/' + questionId + '/answer').then(function (response) {
+                    _this3.correctAnswer = response.data;
+
+                    var timeOut = 6000;
+
+                    _this3.timer = 100 / (timeOut / 100);
+                    var interval = setInterval(function () {
+                        _this3.timer += 100 / (timeOut / 100);
+                        if (_this3.timer >= 100) {
+                            clearInterval(interval);
+                        }
+                    }, 100);
+
+                    setTimeout(function () {
+                        _this3.timer = 0;
+
+                        if (_this3.questions.length === _this3.currentQuestion + 1) {
+                            _this3.stopQuiz();
+                            EventBus.$emit('reloadUserData', true);
+                        } else {
+                            _this3.correctAnswer = null;
+                            _this3.answerIsCorrect = null;
+                            _this3.currentQuestion++;
+                        }
+                    }, timeOut);
+                });
             });
-            this.perc = (this.correct / this.questions.length * 100).toFixed(2);
         },
         closeModal: function closeModal() {
             this.visible = false;
@@ -50385,12 +50459,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 59 */
-/***/ (function(module, exports) {
-
-module.exports = {"title":"Quiz over de Middeleeuwen","questions":[{"text":"Sorteer de volgende gebeurtenissen op volgorde in tijd van verleden naar heden","type":"sort","answers":["invoeren van het leenstelsel","kruistochten","Honderdjarige Oorlog","opkomst van het humanisme","uitvinding van de boekdrukkunst"],"answer":["invoeren van het leenstelsel","kruistochten","Honderdjarige Oorlog","uitvinding van de boekdrukkunst","opkomst van het humanisme"]},{"text":"Leven wij nu in de Middeleeuwen?","type":"tf","answer":"f"},{"text":"De Middeleeuwen waren voor de 1e Wereldoorlog","type":"tf","answer":"t"},{"text":"Wanneer waren de Middeleeuwen?","type":"mc","answers":["ca. 500 tot ca. 1500 n.Chr.","ca. 500 voor tot ca. 500 n.Chr.","ca. 1500 tot ca. 1700 n.Chr.","ca. 1500 tot ca. 500 v.Chr."],"answer":"ca. 500 tot ca. 1500 n.Chr."}]}
-
-/***/ }),
-/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50414,22 +50482,52 @@ var render = function() {
             [
               _vm.introStage
                 ? _c("div", [
-                    _c("h1", [_vm._v("Welkom bij: " + _vm._s(_vm.title))]),
+                    _c("h1", [_vm._v("Beantwoord vragen")]),
                     _vm._v(" "),
                     _c("div", { staticClass: "mt-5" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "text-white font-bold py-2 px-4  bg-blue hover:bg-blue-dark",
-                          on: { click: _vm.startQuiz }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    START!\n                "
+                      this.questions.length === 0
+                        ? _c("div", [
+                            _vm._v(
+                              "\n                    Er zijn geen vragen meer die je kunt beantwoorden.\n                "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.questions.length === 1
+                        ? _c("div", [
+                            _vm._v(
+                              "\n                    Je kunt nog 1 vraag beantwoorden.\n                "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.questions.length > 1
+                        ? _c("div", [
+                            _vm._v(
+                              "\n                    Je kunt nog " +
+                                _vm._s(this.questions.length) +
+                                " vragen beantwoorden.\n                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mt-5" }, [
+                      this.questions.length > 0
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "text-white font-bold py-2 px-4  bg-blue hover:bg-blue-dark",
+                              on: { click: _vm.startQuiz }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    START!\n                "
+                              )
+                            ]
                           )
-                        ]
-                      ),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "button",
@@ -50452,15 +50550,46 @@ var render = function() {
                 ? _c(
                     "div",
                     [
+                      _c("div", { staticClass: "mb-2" }, [
+                        _c("span", [
+                          _vm._v(
+                            "\n                    Vraag: " +
+                              _vm._s(_vm.currentQuestion + 1) +
+                              " van de " +
+                              _vm._s(this.questions.length) +
+                              "\n                "
+                          )
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            "\n                    Juist: " +
+                              _vm._s(_vm.correct) +
+                              " van de " +
+                              _vm._s(_vm.questionsAnswered) +
+                              "\n                "
+                          )
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            "\n                    Punten verdiend: " +
+                              _vm._s(_vm.pointsEarned) +
+                              "\n                "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c("question-component", {
                         attrs: {
                           question: _vm.questions[_vm.currentQuestion],
-                          "question-number": _vm.currentQuestion + 1
+                          answerIsCorrect: _vm.answerIsCorrect,
+                          correctAnswer: _vm.correctAnswer,
+                          timer: _vm.timer
                         },
-                        on: {
-                          answer: _vm.handleAnswer,
-                          closeModal: _vm.closeModal
-                        }
+                        on: { answer: _vm.handleAnswer, stopQuiz: _vm.stopQuiz }
                       })
                     ],
                     1
@@ -50468,16 +50597,53 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _vm.resultsStage
-                ? _c("div", [
-                    _vm._v(
-                      "\n            Je hebt " +
-                        _vm._s(_vm.correct) +
-                        " van de " +
-                        _vm._s(_vm.questions.length) +
-                        " vragen goed. Het percentage is " +
-                        _vm._s(_vm.perc) +
-                        "%.\n                "
-                    ),
+                ? _c("div", { staticClass: "m-6" }, [
+                    this.questions.length === _vm.questionsAnswered
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                Er zijn geen vragen meer die je kunt beantwoorden.\n            "
+                          )
+                        ])
+                      : _c("div", [
+                          _vm._v(
+                            "\n                Je bent gestopt met het beantwoorden van de vragen.\n            "
+                          )
+                        ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v(
+                        "\n                Hieronder zie je een samenvatting over de beantwoordde vraag/vragen:\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mt-3 border border-gray" }, [
+                      _c("span", [
+                        _vm._v(
+                          "\n                    Vragen beantwoord: " +
+                            _vm._s(_vm.questionsAnswered) +
+                            "\n                "
+                        )
+                      ]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          "\n                    Juist: " +
+                            _vm._s(_vm.correct) +
+                            "\n                "
+                        )
+                      ]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          "\n                    Punten verdiend: " +
+                            _vm._s(_vm.pointsEarned) +
+                            "\n                "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "mt-5" }, [
                       _c(
                         "button",
@@ -50512,19 +50678,19 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(62)
+  __webpack_require__(61)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(64)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(67)
+var __vue_template__ = __webpack_require__(66)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50563,13 +50729,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(63);
+var content = __webpack_require__(62);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -50589,7 +50755,7 @@ if(false) {
 }
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)(false);
@@ -50597,19 +50763,23 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuedraggable__);
+//
+//
+//
+//
 //
 //
 //
@@ -50678,28 +50848,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a
   },
-  props: ['question', 'question-number'],
+  props: ['question', 'answerIsCorrect', 'correctAnswer', 'timer'],
   created: function created() {
-
-    if (this.question.type === 'sort') {
+    if (this.question.type.inCode === 'sort') {
       this.answer = this.question.answers;
     }
   },
 
   methods: {
     submitAnswer: function submitAnswer() {
-      this.$emit('answer', { answer: this.answer });
+      this.$emit('answer', { questionId: this.question.id, answer: this.answer });
       this.answer = null;
+
+      if (this.question.type.inCode === 'sort') {
+        this.answer = this.question.answers;
+      }
     },
 
-    closeModal: function closeModal() {
-      this.$emit('closeModal');
+    stopQuiz: function stopQuiz() {
+      this.$emit('stopQuiz');
     }
   }
 });
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51119,7 +51292,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   if (true) {
-    var Sortable = __webpack_require__(66);
+    var Sortable = __webpack_require__(65);
     module.exports = buildDraggable(Sortable);
   } else if (typeof define == "function" && define.amd) {
     define(['sortablejs'], function (Sortable) {
@@ -51132,7 +51305,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 })();
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -52682,7 +52855,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52690,78 +52863,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("strong", [_vm._v("Vraag " + _vm._s(_vm.questionNumber) + ":")]),
-    _c("br"),
-    _vm._v(" "),
-    _c("strong", [_vm._v(_vm._s(_vm.question.text) + " ")]),
-    _vm._v(" "),
-    _vm.question.type === "tf"
-      ? _c("div", { staticClass: "flex flex-col items-center p-4" }, [
-          _c("span", { staticClass: "p-1" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.answer,
-                  expression: "answer"
-                }
-              ],
-              attrs: {
-                type: "radio",
-                name: "currentQuestion",
-                id: "trueAnswer",
-                value: "t"
-              },
-              domProps: { checked: _vm._q(_vm.answer, "t") },
-              on: {
-                change: function($event) {
-                  _vm.answer = "t"
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "trueAnswer" } }, [
-              _vm._v("\n        Waar\n      ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "p-1" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.answer,
-                  expression: "answer"
-                }
-              ],
-              attrs: {
-                type: "radio",
-                name: "currentQuestion",
-                id: "falseAnswer",
-                value: "f"
-              },
-              domProps: { checked: _vm._q(_vm.answer, "f") },
-              on: {
-                change: function($event) {
-                  _vm.answer = "f"
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "falseAnswer" } }, [
-              _vm._v("\n        Niet waar\n      ")
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.question.type === "mc"
+    _c(
+      "strong",
+      {
+        class: {
+          "text-green": _vm.answerIsCorrect === true,
+          "text-red": _vm.answerIsCorrect === false
+        }
+      },
+      [_vm._v(_vm._s(_vm.question.name))]
+    ),
+    _vm._v(" (" + _vm._s(_vm.question.points) + " punten)\n\n    "),
+    _vm.question.type.inCode === "mc" || _vm.question.type.inCode === "tf"
       ? _c(
           "div",
           { staticClass: "flex flex-col items-center p-4" },
-          _vm._l(_vm.question.answers, function(mcanswer, index) {
+          _vm._l(_vm.question.answers, function(element, index) {
             return _c("div", { staticClass: "p-1" }, [
               _c("input", {
                 directives: [
@@ -52778,18 +52895,20 @@ var render = function() {
                   name: "currentQuestion"
                 },
                 domProps: {
-                  value: mcanswer,
-                  checked: _vm._q(_vm.answer, mcanswer)
+                  value: element,
+                  checked: _vm._q(_vm.answer, element)
                 },
                 on: {
                   change: function($event) {
-                    _vm.answer = mcanswer
+                    _vm.answer = element
                   }
                 }
               }),
               _vm._v(" "),
               _c("label", { attrs: { for: "answer" + index } }, [
-                _vm._v("\n        " + _vm._s(mcanswer) + "\n      ")
+                _vm._v(
+                  "\n            " + _vm._s(element.name) + "\n            "
+                )
               ]),
               _c("br")
             ])
@@ -52797,7 +52916,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.question.type === "sort"
+    _vm.question.type.inCode === "sort"
       ? _c(
           "div",
           { staticClass: "flex justify-center p-4" },
@@ -52826,12 +52945,16 @@ var render = function() {
                 return _c(
                   "div",
                   {
-                    key: element,
+                    key: element.id,
                     staticClass:
-                      "border border-gray rounded-lg w-auto p-1 m-1 cursor-move text-center",
+                      "border border-grey rounded-lg w-auto p-1 m-1 cursor-move text-center",
                     attrs: { value: element }
                   },
-                  [_vm._v("\n          " + _vm._s(element) + "\n      ")]
+                  [
+                    _vm._v(
+                      "\n            " + _vm._s(element.name) + "\n        "
+                    )
+                  ]
                 )
               })
             )
@@ -52840,27 +52963,64 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "mt-5" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
-          on: { click: _vm.closeModal }
-        },
-        [_vm._v("\n          Sluiten\n      ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "text-white font-bold py-2 px-4 bg-blue hover:bg-blue-dark",
-          on: { click: _vm.submitAnswer }
-        },
-        [_vm._v("\n          Antwoord\n      ")]
-      )
-    ])
+    _vm.answerIsCorrect === null
+      ? _c("div", { staticClass: "mt-5" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
+              on: { click: _vm.stopQuiz }
+            },
+            [_vm._v("\n            Stop\n        ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "text-white font-bold py-2 px-4 bg-blue hover:bg-blue-dark",
+              on: { click: _vm.submitAnswer }
+            },
+            [_vm._v("\n            Antwoord\n        ")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.answerIsCorrect !== null
+      ? _c("div", { staticClass: "mt-2" }, [
+          _vm.answerIsCorrect
+            ? _c("div", [
+                _vm._v("\n            Jouw antwoord is juist!\n        ")
+              ])
+            : _c(
+                "div",
+                [
+                  _vm._v(
+                    "\n            Jouw antwoord is helaas fout. Het juiste antwoord is:\n            "
+                  ),
+                  _vm._l(_vm.correctAnswer, function(element, index) {
+                    return _c("div", [
+                      _vm._v("\n                " + _vm._s(element.name)),
+                      _c("br")
+                    ])
+                  })
+                ],
+                2
+              )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.answerIsCorrect !== null
+      ? _c("div", { staticClass: "mt-5" }, [
+          _c("div", { staticClass: "mt-2 w-full h-2 bg-grey-light" }, [
+            _c("div", {
+              staticClass: "p-1 h-full bg-red-light",
+              style: { width: _vm.timer + "%" }
+            })
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -52874,7 +53034,7 @@ if (false) {
 }
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
