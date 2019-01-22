@@ -18,3 +18,7 @@ Route::get('/', 'GameController@index');
 /* Default Routes */
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
