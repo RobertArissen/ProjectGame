@@ -42592,6 +42592,7 @@ Vue.component('game-compontent', __webpack_require__(48));
 Vue.component('buy-houses-compontent', __webpack_require__(51));
 Vue.component('quiz-component', __webpack_require__(54));
 Vue.component('question-component', __webpack_require__(60));
+Vue.component('leaderboard-compontent', __webpack_require__(71));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -49594,6 +49595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49641,6 +49643,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         openQuiz: function openQuiz() {
             EventBus.$emit('openQuizModal', { Xi: this.selectedTileX, Yi: this.selectedTileY });
+        },
+        openLeaderBoardModal: function openLeaderBoardModal() {
+            EventBus.$emit('openLeaderBoardModal', { Xi: this.selectedTileX, Yi: this.selectedTileY });
         }
     }
 });
@@ -49677,7 +49682,19 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _c(
+            "button",
+            {
+              staticClass:
+                "bg-white shadow-lg flex pr-5 items-center bg-green text-white",
+              on: { click: _vm.openLeaderBoardModal }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("span", { staticClass: "mt-1" }, [_vm._v("Bekijk scorebord")])
+            ]
+          )
         ]
       ),
       _vm._v(" "),
@@ -49746,6 +49763,8 @@ var render = function() {
       _vm._v(" "),
       _c("quiz-component"),
       _vm._v(" "),
+      _c("leaderboard-compontent", { attrs: { user: _vm.user } }),
+      _vm._v(" "),
       _c("canvas", { attrs: { id: "isocanvas" } }),
       _vm._v(" "),
       _c("notifications", { attrs: { group: "notify" } })
@@ -49775,20 +49794,9 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "bg-white shadow-lg flex pr-5 items-center bg-green text-white"
+          "bg-green-dark text-white p-2 text-xs mr-5 flex items-center"
       },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "bg-green-dark text-white p-2 text-xs mr-5 flex items-center"
-          },
-          [_c("i", { staticClass: "fas fa-star" })]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "mt-1" }, [_vm._v("Bekijk scorebord")])
-      ]
+      [_c("i", { staticClass: "fas fa-star" })]
     )
   },
   function() {
@@ -53899,6 +53907,233 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(72)
+/* template */
+var __vue_template__ = __webpack_require__(73)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/game/LeaderBoardComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f57c3fc", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f57c3fc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user'],
+
+    data: function data() {
+        return {
+            visible: false,
+            classUsers: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        EventBus.$on('openLeaderBoardModal', function (data) {
+            _this.init();
+            _this.visible = true;
+            Game.modalOpen = true;
+        });
+    },
+
+
+    methods: {
+        init: function init() {
+            var _this2 = this;
+
+            axios.post('/api/class/leaderboard', { classId: this.user.class.id }).then(function (response) {
+                _this2.classUsers = response.data;
+                console.log(_this2.classUsers);
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
+        },
+        closeModal: function closeModal() {
+            this.visible = false;
+
+            setTimeout(function () {
+                Game.modalOpen = false;
+            }, 500);
+        }
+    }
+});
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.visible
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "h-screen w-full absolute flex items-center justify-center z-50"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "bg-white rounded shadow-lg p-8 m-4 max-h-full text-center overflow-y-scroll",
+                staticStyle: { width: "600px" }
+              },
+              [
+                _vm.user.class
+                  ? _c("h3", [_vm._v("Klas: " + _vm._s(_vm.user.class.name))])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("table", { staticClass: "table w-full mt-5" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.classUsers, function(user, index) {
+                      return _c("tr", [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(index + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(user.soldiers))])
+                      ])
+                    })
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex justify-center mt-8" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark",
+                      on: {
+                        click: function($event) {
+                          _vm.closeModal()
+                        }
+                      }
+                    },
+                    [_vm._v("Sluiten")]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-blue text-white" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Naam")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Leger punten")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f57c3fc", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

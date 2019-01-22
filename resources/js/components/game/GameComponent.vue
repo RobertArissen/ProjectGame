@@ -10,12 +10,12 @@
                 <span class="mt-1">Beantwoord vragen</span>
             </button>
 
-            <div class="bg-white shadow-lg flex pr-5 items-center bg-green text-white">
+            <button class="bg-white shadow-lg flex pr-5 items-center bg-green text-white" @click="openLeaderBoardModal">
                 <div class="bg-green-dark text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-star"></i>
                 </div>
                 <span class="mt-1">Bekijk scorebord</span>
-            </div>
+            </button>
         </div>
 
         <div class="fixed flex flex-row" style="right:50px; top: 20px">
@@ -50,7 +50,8 @@
 
         <buy-houses-compontent :period="period" :user="user"></buy-houses-compontent>
         <quiz-component></quiz-component>
-        
+        <leaderboard-compontent :user="user"></leaderboard-compontent>
+
         <canvas id="isocanvas"></canvas>
 
         <notifications group="notify" />
@@ -103,6 +104,10 @@
 
             openQuiz() {
                 EventBus.$emit('openQuizModal', {Xi: this.selectedTileX, Yi: this.selectedTileY});
+            },
+
+            openLeaderBoardModal() {
+                EventBus.$emit('openLeaderBoardModal', {Xi: this.selectedTileX, Yi: this.selectedTileY});
             },
         }
     }
