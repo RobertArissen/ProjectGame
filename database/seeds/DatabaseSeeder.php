@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'price' => 50,
             'periods_id' => 1,
             'index' => 0,
+            'soldiers' => 5,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
@@ -64,6 +65,7 @@ class DatabaseSeeder extends Seeder
             'price' => 110,
             'periods_id' => 1,
             'index' => 1,
+            'soldiers' => 20,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
@@ -73,6 +75,7 @@ class DatabaseSeeder extends Seeder
             'price' => 90,
             'periods_id' => 1,
             'index' => 2,
+            'soldiers' => 300,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
@@ -82,6 +85,7 @@ class DatabaseSeeder extends Seeder
             'price' => 150,
             'periods_id' => 1,
             'index' => 3,
+            'soldiers' => 180,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);

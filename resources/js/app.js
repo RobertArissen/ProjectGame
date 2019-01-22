@@ -33,6 +33,7 @@ Vue.component('game-compontent', require('./components/game/GameComponent.vue'))
 Vue.component('buy-houses-compontent', require('./components/game/BuyHousesComponent.vue'));
 Vue.component('quiz-component', require('./components/quiz/QuizComponent.vue'));
 Vue.component('question-component', require('./components/quiz/QuestionComponent.vue'));
+Vue.component('leaderboard-compontent', require('./components/game/LeaderBoardComponent.vue'));
 
 
 /**

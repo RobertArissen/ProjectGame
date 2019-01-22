@@ -11,13 +11,20 @@
                         <div class="mt-4">
                             <h5>{{building.name}}</h5>
                             <div class="bg-white flex pr-5 items-center border mt-8">
-                                <div class="bg-red text-white p-2 text-xs mr-5 flex items-center justify-center">
+                                <div class="bg-orange text-white p-2 text-xs mr-5 flex items-center justify-center">
                                     <i class="fas fa-coins"></i>
                                 </div>
                                 <span class="mt-1">{{building.price}}</span>
                             </div>
 
-                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-2" v-if="user.coins >= building.price"  @click="buyBuilding(building.index)">
+                            <div class="bg-white flex pr-5 items-center border mt-1">
+                                <div class="bg-red text-white p-2 text-xs mr-5 flex items-center justify-center">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <span class="mt-1">{{building.soldiers}}</span>
+                            </div>
+
+                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-4" v-if="user.coins >= building.price"  @click="buyBuilding(building.index)">
                                 <div class="bg-blue-dark text-white p-2 text-xs mr-5 flex items-center">
                                     <i class="fas fa-check"></i>
                                 </div>

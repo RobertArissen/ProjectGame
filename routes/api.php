@@ -32,3 +32,4 @@ Route::group(['middleware' => ['auth:api']], function () {
 /* Classes Api */
 Route::get('/class', 'API\ClassController@index');
 Route::post('/class/users', 'API\ClassController@getUsers');
+Route::post('/class/leaderboard', 'API\ClassController@getLeaderBoard');

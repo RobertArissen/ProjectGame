@@ -18,6 +18,7 @@ class CreateBuildings extends Migration
             $table->text('name');
             $table->bigInteger('price');
             $table->bigInteger('index');
+            $table->bigInteger('soldiers');
             $table->integer('periods_id');
             $table->timestamps();
         });
