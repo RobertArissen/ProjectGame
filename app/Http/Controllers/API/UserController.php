@@ -21,6 +21,17 @@ class UserController extends Controller
         $user = User::FindOrFail($request->user()->id);
         $user->class;
 
+        /* soldiers */
+        $totalSoldiers = 0;
+        $buildings = UsersBuildings::where('users_id', '=', $request->user()->id)->get();
+       
+        foreach($buildings as $item){
+            $building = Building::where('id', '=', $item->building_id)->first();
+            $totalSoldiers += $building->soldiers;
+        }
+
+        $user->soldiers = $totalSoldiers;
+
         return $user;
     }
 

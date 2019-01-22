@@ -33,8 +33,15 @@
                 <span class="mt-1">{{period.name}}</span>
             </div>
 
+            <div class="bg-white shadow-lg flex pr-5 items-center mr-5">
+                <div class="bg-red text-white p-2 text-xs mr-5 flex items-center">
+                <i class="fas fa-shield-alt"></i>
+                </div>
+                <span class="mt-1">{{user.soldiers}}</span>
+            </div>
+
             <div class="bg-white shadow-lg flex pr-5 items-center">
-                <div class="bg-red text-white p-2 text-xs mr-5 flex items-center justify-center">
+                <div class="bg-orange text-white p-2 text-xs mr-5 flex items-center justify-center">
                 <i class="fas fa-coins"></i>
                 </div>
                 <span class="mt-1">{{user.coins}}</span>
