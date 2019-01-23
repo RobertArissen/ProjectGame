@@ -15,7 +15,7 @@
     <div id="app" class="h-screen">
         <div class="container mx-auto h-full flex justify-center items-center">
         <div class="w-1/3">
-            <h1 class="font-hairline mb-6 text-center">GameNaam</h1>
+            <h1 class="font-hairline mb-6 text-center">HistoCity</h1>
             <div class="border-blue p-8 border-t-4 bg-white mb-6 shadow-lg">
                  <form role="form" method="POST" action="/login">
                   @if ($errors->any())

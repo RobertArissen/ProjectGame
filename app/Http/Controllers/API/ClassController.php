@@ -28,7 +28,7 @@ class ClassController extends Controller
 
     public function getLeaderBoard(Request $request)
     {
-        $users =  User::where('class_id', '=', $request->classId)->select('email', 'name', 'id')->get();
+        $users =  User::where('class_id', '=', $request->classId)->select('email', 'name', 'id', 'soldiers')->get();
 
         foreach($users as $user){
              /* soldiers */
@@ -40,7 +40,7 @@ class ClassController extends Controller
                 $totalSoldiers += $building->soldiers;
             }
 
-            $user->soldiers = $totalSoldiers;
+            $user->soldiers += $totalSoldiers;
         }
 
         return $users->sortBy('soldiers');

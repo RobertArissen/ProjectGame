@@ -71,6 +71,7 @@
 
                 <div class="mt-5">
                     <button class="flex-no-shrink text-white py-2 px-4 bg-red hover:bg-red-dark"
+                        onclick="this.disabled=true;"
                         @click="closeModal">
                         Sluiten
                     </button>
@@ -155,41 +156,47 @@ export default {
             )
             .then(response => {
                 this.answerIsCorrect = response.data.answerIsCorrect;
-                this.pointsEarned += response.data.pointsEarned;
+                this.pointsEarned += parseInt(response.data.pointsEarned);
 
                 if (this.answerIsCorrect) this.correct++;
 
                 axios.get('/api/question/'+questionId+'/answer')
                 .then(response => {
                     this.correctAnswer = response.data;
-
-                    let timeOut = 6000;
-
-                    this.timer = ( 100 / (timeOut / 100));
-                    let interval = setInterval(() => {
-                        this.timer += ( 100 / (timeOut / 100));
-                        if (this.timer >= 100) {
-                            clearInterval(interval);
-                        }
-                    }, 100);
-
-                    setTimeout(() => {
-                        this.timer = 0;
-
-                        if (this.questions.length === this.currentQuestion +1) {
-                            this.stopQuiz();
-                            EventBus.$emit('reloadUserData', true);
-                        } else {
-                            this.correctAnswer = null;
-                            this.answerIsCorrect = null;
-                            this.currentQuestion++;
-                        }
-                    }, timeOut);
                 });
+
+                let timeOut = 6000;
+
+                this.timer = ( 100 / (timeOut / 100));
+                let interval = setInterval(() => {
+                    this.timer += ( 100 / (timeOut / 100));
+                    if (this.timer >= 100) {
+                        clearInterval(interval);
+                    }
+                }, 100);
+
+                setTimeout(() => {
+                    this.timer = 0;
+
+                    if (this.questions.length === this.currentQuestion +1) {
+                        this.stopQuiz();
+                    } else {
+                        this.correctAnswer = null;
+                        this.answerIsCorrect = null;
+                        this.currentQuestion++;
+                    }
+                }, timeOut);
             });
         },
         closeModal() {
-            this.visible = false
+            EventBus.$emit('reloadUserData', true);
+            this.$notify({
+                group: 'notify',
+                type:'success',
+                title: 'Quiz afgesloten',
+                text: 'Er zijn ' + this.pointsEarned + ' munten toegevoegd.'
+            })
+            this.visible = false;
             
             setTimeout(() => {
                 Game.modalOpen = false
