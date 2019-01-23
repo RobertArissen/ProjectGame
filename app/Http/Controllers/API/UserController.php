@@ -30,7 +30,7 @@ class UserController extends Controller
             $totalSoldiers += $building->soldiers;
         }
 
-        $user->soldiers = $totalSoldiers;
+        $user->soldiers += $totalSoldiers;
 
         return $user;
     }

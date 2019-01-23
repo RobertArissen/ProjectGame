@@ -37,7 +37,9 @@ class QuestionController extends Controller
 
     public function answer(Request $request)
     {
-        $userQuestion = User::find($request->user()->id)->answeredQuestions()
+        $user = User::FindOrFail($request->user()->id);
+
+        $userQuestion = $user->answeredQuestions()
             ->where('question_id', $request->questionId)
             ->pluck('question_id')->toArray();
     
@@ -84,15 +86,6 @@ class QuestionController extends Controller
                 );
             }
 
-            $user = User::FindOrFail($request->user()->id);
-
-            UsersQuestions::create([
-                'users_id' => $user->id,
-                'periods_id' => $user->class->periods_id,
-                'question_id' => $question->id,
-                'correct' => $answerIsCorrect
-            ]);
-
             if ($answerIsCorrect) {
                 // Update user coins 
                 $user->coins = $user->coins + $question->points;
@@ -101,6 +94,13 @@ class QuestionController extends Controller
                 $pointsEarned = $question->points;
             } 
         }
+
+        UsersQuestions::create([
+            'users_id' => $user->id,
+            'periods_id' => $user->class->periods_id,
+            'question_id' => $question->id,
+            'correct' => $answerIsCorrect
+        ]);
 
         return response()->json([
             'answerIsCorrect' => $answerIsCorrect,

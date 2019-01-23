@@ -4,7 +4,7 @@
 
     <div class="flex flex-col items-center p-4" v-if="question.type.inCode === 'mc' || question.type.inCode === 'tf'">
         <div class="p-1" v-for="(element,index) in question.answers">
-            <input type="radio" :id="'answer'+index" name="currentQuestion" v-model="answer" :value="element">
+            <input type="radio" :id="'answer'+index" name="currentQuestion" v-model="answer" :value="element" :disabled="answerIsCorrect !== null">
             <label :for="'answer'+index">
             {{element.name}}
             </label><br/>
@@ -12,8 +12,8 @@
     </div>
 
     <div class="flex justify-center p-4" v-if="question.type.inCode === 'sort'">
-      <draggable class="w-1/2 p-1" v-model="answer" @start="drag=true" @end="drag=false">
-        <div class="border border-grey rounded-lg w-auto p-1 m-1 cursor-move text-center" :value="element" v-for="element in answer" :key="element.id">
+      <draggable class="w-1/2 p-1" v-model="question.answers" @start="drag=true" @end="drag=false" :options="{disabled: answerIsCorrect !== null}">
+        <div class="border border-grey rounded-lg w-auto p-1 m-1 cursor-move text-center" :value="element" v-for="element in question.answers" :key="element.id">
             {{element.name}}
         </div>
       </draggable>
@@ -34,10 +34,10 @@
     </div>
 
     <div class="mt-2" v-if="answerIsCorrect !== null">
-        <div v-if="answerIsCorrect">
+        <div v-if="answerIsCorrect" v-bind:class="{ 'text-green': answerIsCorrect === true }">
             Jouw antwoord is juist!
         </div>
-        <div v-else>
+        <div v-else v-bind:class="{ 'text-red': answerIsCorrect === false }">
             Jouw antwoord is helaas fout. Het juiste antwoord is:
             <div v-for="(element,index) in correctAnswer">
                 {{element.name}}<br/>
@@ -48,7 +48,7 @@
 
     <div class="mt-5" v-if="answerIsCorrect !== null">
         <div class="mt-2 w-full h-2 bg-grey-light">
-            <div class="p-1 h-full bg-red-light" v-bind:style="{width: timer +'%'}">
+            <div class="p-1 h-full" v-bind:class="{ 'bg-green-light': answerIsCorrect === true, 'bg-red-light': answerIsCorrect === false }" v-bind:style="{width: timer +'%'}">
             </div>
         </div>
     </div>
@@ -70,19 +70,12 @@ export default {
       draggable,
   },
   props:['question', 'answerIsCorrect', 'correctAnswer', 'timer'],
-  created() {
-    if (this.question.type.inCode === 'sort') {
-      this.answer = this.question.answers;
-    }
-  },
   methods:{
       submitAnswer:function() {
-        this.$emit('answer', {questionId: this.question.id, answer:this.answer});
-        this.answer = null;
-
         if (this.question.type.inCode === 'sort') {
             this.answer = this.question.answers;
         }
+        this.$emit('answer', {questionId: this.question.id, answer:this.answer});
       },
 
       stopQuiz() {
