@@ -5,8 +5,8 @@
                 
                 <h3 v-if="user.class">Klas: {{user.class.name}}</h3>
 
-                <table class="table w-full mt-5">
-                    <thead class="bg-blue text-white">
+                <table class="table w-full mt-5 shadow">
+                    <thead class="bg-blue-dark text-white">
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Naam</th>
@@ -14,10 +14,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(user, index) in classUsers">
-                            <th scope="row">{{index+1}}</th>
-                            <td>{{user.name}}</td>
-                            <td>{{user.soldiers}}</td>
+                        <tr v-for="(classUser, index) in classUsers" v-bind:class="{ 'bg-blue-light': classUser.id === user.id }">
+                            <th scope="row">{{parseInt(index)+1}}</th>
+                            <td>{{classUser.name}}</td>
+                            <td>{{classUser.soldiers}}</td>
                         </tr>
                     </tbody>
                 </table>

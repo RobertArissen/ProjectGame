@@ -2,7 +2,7 @@
     <div>
         <div class="fixed flex flex-row" style="left:50px; top: 20px">
             <button 
-            class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white"
+            class="shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white"
             @click="openQuiz">
                 <div class="bg-blue-dark text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-question"></i>
@@ -10,12 +10,19 @@
                 <span class="mt-1">Beantwoord vragen</span>
             </button>
 
-            <button class="bg-white shadow-lg flex pr-5 items-center bg-green text-white" @click="openLeaderBoardModal">
+            <button class="shadow-lg flex pr-5 items-center bg-green text-white mr-5 hover:bg-green-dark" @click="openLeaderBoardModal">
                 <div class="bg-green-dark text-white p-2 text-xs mr-5 flex items-center">
                 <i class="fas fa-star"></i>
                 </div>
                 <span class="mt-1">Bekijk scorebord</span>
             </button>
+
+            <a class="shadow-lg flex pr-5 items-center bg-red text-white no-underline hover:bg-red-dark" href="/logout">
+                <div class="bg-red-dark text-white p-2 text-xs mr-5 flex items-center">
+                <i class="fas fa-sign-in-alt"></i>
+                </div>
+                <span class="mt-1">Uitloggen</span>
+            </a>
         </div>
 
         <div class="fixed flex flex-row" style="right:50px; top: 20px">
