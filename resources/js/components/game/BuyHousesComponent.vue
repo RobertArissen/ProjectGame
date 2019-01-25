@@ -24,7 +24,7 @@
                                 <span class="mt-1">{{building.soldiers}}</span>
                             </div>
 
-                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-4" v-if="user.coins >= building.price"  @click="buyBuilding(building.index)">
+                            <button class="bg-white shadow-lg-lg flex pr-5 items-center mr-5 bg-blue hover:bg-blue-dark text-white w-full mt-4" v-if="parseInt(user.coins) >= parseInt(building.price)"  @click="buyBuilding(building.index)">
                                 <div class="bg-blue-dark text-white p-2 text-xs mr-5 flex items-center">
                                     <i class="fas fa-check"></i>
                                 </div>
@@ -58,10 +58,10 @@
         },
 
         mounted() {
-            this.buildingMap = window.GameDataObject.building
             this.loadHouses()
 
             EventBus.$on('openBuyBuilding', data => {
+                this.buildingMap = window.GameDataObject.building
                 if(Game.modalOpen) this.visible = true
                 this.Xi = data.Xi
                 this.Yi = data.Yi

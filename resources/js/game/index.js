@@ -27,34 +27,38 @@ window.Game = {
       this.tileImages = new Array();
       this.buildingImages = new Array();
       let loadedImages = 0;
-      let totalImages = GameDataObject.tiles.length + GameDataObject.building.length;
-  
-      // Load Tiles
-      for(let i = 0; i < GameDataObject.tiles.length; i++) {
-        this.tileImages[i] = new Image();
+      let totalImages = GameDataObject.tiles.length;
 
-        this.tileImages[i].onload = () => {
-          if(++loadedImages >= totalImages) {
-            this.run();
-          }
-        };
+      axios.get('/api/building/all')
+      .then(response => {  
+        // Load Tiles
+        for(let i = 0; i < GameDataObject.tiles.length; i++) {
+          this.tileImages[i] = new Image();
 
-        this.tileImages[i].src = GameDataObject.tiles[i];
-      }
+          this.tileImages[i].onload = () => {
+            ++loadedImages
+          };
 
-       // Load Buildings
-       for(let i = 0; i < GameDataObject.building.length; i++) {
-        this.buildingImages[i] = new Image();
+          this.tileImages[i].src = GameDataObject.tiles[i];
+        }
 
-        this.buildingImages[i].onload = () => {
-          if(++loadedImages >= totalImages) {
-            this.run();
-          }
-        };
+        // Load Buildings
+        const buildingsImagesResult = response.data;
 
-        this.buildingImages[i].src = GameDataObject.building[i].img;
-      }
-  
+        for(let i = 0; i < buildingsImagesResult.length; i++) {
+          ++totalImages;
+          GameDataObject.building[i] = buildingsImagesResult[i];
+          this.buildingImages[i] = new Image();
+
+          this.buildingImages[i].onload = () => {
+            if(++loadedImages >= totalImages) {
+              this.run();
+            }
+          };
+
+          this.buildingImages[i].src = buildingsImagesResult[i].img;
+        }
+      })  
     },
   
     run: function() {
@@ -92,10 +96,6 @@ window.Game = {
             this.modalOpen = true
             EventBus.$emit('openBuyBuilding', {Xi: this.selectedTileX, Yi: this.selectedTileY});
           }
-
-        //this.addBuilding()
-        //this.showCoordinates = !this.showCoordinates;
-        //this.redrawTiles();
       });
 
       /* Events */
@@ -142,8 +142,8 @@ window.Game = {
     },
 
     drawBuilding: function(buildingIndex, Xi, Yi) {
-      let offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX + GameDataObject.building[buildingIndex].offX;
-      let offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY - GameDataObject.building[buildingIndex].offY;
+      let offX = Xi * this.tileColumnOffset / 2 + Yi * this.tileColumnOffset / 2 + this.originX + parseInt(GameDataObject.building[buildingIndex].offX);
+      let offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY - parseInt(GameDataObject.building[buildingIndex].offY);
   
       this.context.drawImage(this.buildingImages[buildingIndex], offX, offY);
     },

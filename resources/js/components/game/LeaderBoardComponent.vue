@@ -56,7 +56,6 @@
             init(){
                 axios.post('/api/class/leaderboard', {classId: this.user.class.id}).then((response)=>{
                     this.classUsers = response.data
-                    console.log(this.classUsers)
                 }).catch((error)=>{
                     console.log(error.response.data)
                 });
