@@ -35,12 +35,11 @@
                     @foreach($query as $relationshipData)
  
                         @if ($options->column == 'role_id'
-                            && (
-                                Auth::user()->hasRole('admin')
-                                || $relationshipData->name != 'admin'
+                            && !Auth::user()->hasRole('admin')
+                            && $relationshipData->name == 'admin'
                             )
-                        )
-                        
+
+                        @else
                             <option value="{{ $relationshipData->{$options->key} }}" @if($dataTypeContent->{$options->column} == $relationshipData->{$options->key}){{ 'selected="selected"' }}@endif>{{ $relationshipData->{$options->label} }}</option>
                         @endif
                     @endforeach
