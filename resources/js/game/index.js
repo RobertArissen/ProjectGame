@@ -48,6 +48,7 @@ window.Game = {
         for(let i = 0; i < buildingsImagesResult.length; i++) {
           ++totalImages;
           GameDataObject.building[i] = buildingsImagesResult[i];
+          GameDataObject.building[i].img = '/storage/'+buildingsImagesResult[i].img;
           this.buildingImages[i] = new Image();
 
           this.buildingImages[i].onload = () => {
