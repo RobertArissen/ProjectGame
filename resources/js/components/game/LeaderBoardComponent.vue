@@ -55,7 +55,7 @@
         methods: {
             init(){
                 axios.post('/api/class/leaderboard', {classId: this.user.class.id}).then((response)=>{
-                    this.classUsers = response.data
+                    this.classUsers = _.orderBy(response.data, ['soldiers'],['desc'])
                 }).catch((error)=>{
                     console.log(error.response.data)
                 });

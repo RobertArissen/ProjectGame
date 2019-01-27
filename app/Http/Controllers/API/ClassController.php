@@ -43,6 +43,6 @@ class ClassController extends Controller
             $user->soldiers += $totalSoldiers;
         }
 
-        return $users->sortBy('soldiers');
+        return $users;
     }
 }
