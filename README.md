@@ -1,13 +1,23 @@
-**After clone**
+ProjectGame for Minor 'Vernieuwend leren met ICT & Games' at Hogeschool Utrecht - University of Applied Sciences
 
-`php artisan passport:install`
-`php artisan db:seed`
+Contributers: @RobertArissen and @ericb97
 
-**After clone/checkout**
+**Set up project**
+
+`git clone https://github.com/RobertArissen/ProjectGame.git`
+
+setup Laravel Valet development as described on https://laravel.com/docs/5.7/valet
+
+**After clone/new checkout**
 
 `composer install`
 `npm install`
 `mysql.server start`
+
+**After clone**
+
+`php artisan passport:install`
+`php artisan db:seed`
 
 **To run migrations + database seeder (`DatabaseSeeder.php`)**
 
